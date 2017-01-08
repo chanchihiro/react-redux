@@ -22554,6 +22554,22 @@ function symbolObservablePonyfill(root) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+var nextTodoId = 0;
+
+var addTodo = exports.addTodo = function addTodo(text) {
+	return {
+		type: 'ADD_TODO',
+		id: nextTodoId++,
+		text: text
+	};
+};
+
+},{}],216:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22598,7 +22614,7 @@ var App = function (_React$Component) {
 
 exports.default = App;
 
-},{"react":204}],216:[function(require,module,exports){
+},{"react":204}],217:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -22611,11 +22627,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRedux = require('react-redux');
 
-var _reactRedux2 = _interopRequireDefault(_reactRedux);
-
 var _redux = require('redux');
-
-var _redux2 = _interopRequireDefault(_redux);
 
 var _Reducer = require('./reducers/Reducer');
 
@@ -22625,22 +22637,30 @@ var _App = require('./components/App');
 
 var _App2 = _interopRequireDefault(_App);
 
+var _Actions = require('./actions/Actions');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux2.default)(_Reducer2.default);
+var store = (0, _redux.createStore)(_Reducer2.default);
+
+store.dispatch((0, _Actions.addTodo)('Hello world!'));
+console.log(store.getState());
 
 _reactDom2.default.render(_react2.default.createElement(
-	_reactRedux2.default,
+	_reactRedux.Provider,
 	{ store: store },
 	_react2.default.createElement(_App2.default, null)
 ), document.getElementById("root"));
 
-},{"./components/App":215,"./reducers/Reducer":217,"react":204,"react-dom":38,"react-redux":174,"redux":210}],217:[function(require,module,exports){
-'use strict';
+},{"./actions/Actions":215,"./components/App":216,"./reducers/Reducer":218,"react":204,"react-dom":38,"react-redux":174,"redux":210}],218:[function(require,module,exports){
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var todo = function todo(state, action) {
 	switch (action.type) {
 		case 'ADD_TODO':
@@ -22652,6 +22672,19 @@ var todo = function todo(state, action) {
 			return state;
 	}
 };
-exports.default = todo;
 
-},{}]},{},[216]);
+var todos = function todos() {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	var action = arguments[1];
+
+	switch (action.type) {
+		case "ADD_TODO":
+			return [].concat(_toConsumableArray(state), [todo(undefined, action)]);
+		default:
+			return state;
+	}
+};
+
+exports.default = todos;
+
+},{}]},{},[217]);
