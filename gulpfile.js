@@ -33,7 +33,7 @@ gulp.task('babel', function() {
 
 gulp.task("build", function(){
 	browserify({entries: ["src/js/index.js"]})
-		.transform(babelify,{presets: ['es2015',"react"]})
+		.transform(babelify,{presets: ['es2015',"react"]}, {plugin: ['add-module-exports']})
 		.bundle()
 		.on("error",errorHandler)
 		.pipe(source('bundle.js'))
@@ -91,6 +91,9 @@ gulp.task("default",["server","babel"],function(){
 	gulp.watch("src/js/*.es6",["babel"]);
 	gulp.watch('src/js/*.js', ['build']);
 	gulp.watch("src/js/components/*.js", ["build"]);
+	gulp.watch("src/js/reducers/*.js", ["build"]);
+	gulp.watch("src/js/containers/*.js", ["build"]);
+	gulp.watch("src/js/actions/*.js", ["build"]);
 	gulp.watch("public/**",function(){
 	browser.reload();
 	});
