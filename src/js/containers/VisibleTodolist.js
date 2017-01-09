@@ -5,6 +5,6 @@ const mapStateToProps = (state) => {
 	return { todos : state.todos }
 }
 
-const VisibleTodoList = connect (mapStateToProps)(TodoList)
+const VisibleTodoList = connect(mapStateToProps)(TodoList)
 
 export default VisibleTodoList
