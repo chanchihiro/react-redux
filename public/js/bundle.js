@@ -22575,6 +22575,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _AddTodo = require('../containers/AddTodo');
+
+var _AddTodo2 = _interopRequireDefault(_AddTodo);
+
 var _VisibleTodoList = require('../containers/VisibleTodoList');
 
 var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
@@ -22585,19 +22589,18 @@ var App = function App() {
 	return _react2.default.createElement(
 		'div',
 		null,
+		_react2.default.createElement(_AddTodo2.default, null),
 		_react2.default.createElement(_VisibleTodoList2.default, null)
 	);
 };
 exports.default = App;
 
-},{"../containers/VisibleTodoList":219,"react":204}],217:[function(require,module,exports){
+},{"../containers/AddTodo":219,"../containers/VisibleTodoList":220,"react":204}],217:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -22605,34 +22608,18 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var Todo = function Todo(_ref) {
+	var text = _ref.text;
+	return _react2.default.createElement(
+		'li',
+		null,
+		text
+	);
+};
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Todo = function (_React$Component) {
-	_inherits(Todo, _React$Component);
-
-	function Todo() {
-		_classCallCheck(this, Todo);
-
-		return _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).apply(this, arguments));
-	}
-
-	_createClass(Todo, [{
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				'li',
-				null,
-				text
-			);
-		}
-	}]);
-
-	return Todo;
-}(_react2.default.Component);
+Todo.propTypes = {
+	text: _react.PropTypes.string.isRequired
+};
 
 exports.default = Todo;
 
@@ -22661,14 +22648,70 @@ var TodoList = function TodoList(_ref) {
 		'ul',
 		null,
 		todos.map(function (todo) {
-			return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo));
+			return _react2.default.createElement(_Todo2.default, _extends({
+				key: todo.id
+			}, todo));
 		})
 	);
 };
 
+// TodoList.propTypes = {
+// 	todos : PropTypes.arrayOf(PropTypes.shape({
+// 		id : PropTypes.number.isRequired,
+// 		text : PropTypes.string.isRequired
+// 	}).isRequired).isRequired
+// }
+
+// ()の配列かどうか
+// 指定された形式を満たしているかどうか
+// 条件を満たしているかどうか
+
 exports.default = TodoList;
 
 },{"./Todo":217,"react":204}],219:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _Actions = require('../actions/Actions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AddTodo = function AddTodo(_ref) {
+	var dispatch = _ref.dispatch;
+
+	var input = void 0;
+
+	return _react2.default.createElement(
+		'div',
+		null,
+		_react2.default.createElement('input', { ref: function ref(node) {
+				input = node;
+			} }),
+		_react2.default.createElement(
+			'button',
+			{ onClick: function onClick() {
+					dispatch((0, _Actions.addTodo)(input.value));
+					input.value = '';
+				} },
+			'AddTodo'
+		)
+	);
+};
+
+AddTodo = (0, _reactRedux.connect)()(AddTodo);
+
+exports.default = AddTodo;
+
+},{"../actions/Actions":215,"react":204,"react-redux":174}],220:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22691,7 +22734,7 @@ var VisibleTodoList = (0, _reactRedux.connect)(mapStateToProps)(_TodoList2.defau
 
 exports.default = VisibleTodoList;
 
-},{"../components/TodoList":218,"react-redux":174}],220:[function(require,module,exports){
+},{"../components/TodoList":218,"react-redux":174}],221:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -22718,10 +22761,11 @@ var _Actions = require('./actions/Actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_Reducer2.default);
+var store = (0, _redux.createStore)(_Reducer2.default); // reducerを呼び出す
 
-store.dispatch((0, _Actions.addTodo)('Hello world!'));
-console.log(store.getState());
+store.dispatch((0, _Actions.addTodo)('Hello world!')); // この関数にactionを渡すことでacitonとstateをreducerに渡す
+store.dispatch((0, _Actions.addTodo)('Hello Redux!'));
+console.log(store.getState()); // => Object {id: 0, text: "Hello World!"}を返すはず 
 
 _reactDom2.default.render(_react2.default.createElement(
 	_reactRedux.Provider,
@@ -22729,14 +22773,21 @@ _reactDom2.default.render(_react2.default.createElement(
 	_react2.default.createElement(_App2.default, null)
 ), document.getElementById("root"));
 
-},{"./actions/Actions":215,"./components/App":216,"./reducers/Reducer":221,"react":204,"react-dom":38,"react-redux":174,"redux":210}],221:[function(require,module,exports){
-"use strict";
+},{"./actions/Actions":215,"./components/App":216,"./reducers/Reducer":222,"react":204,"react-dom":38,"react-redux":174,"redux":210}],222:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = {
+	todos: [{
+		id: 0,
+		text: "Default Description"
+	}]
+};
 
 var todo = function todo(state, action) {
 	switch (action.type) {
@@ -22755,7 +22806,7 @@ var todos = function todos() {
 	var action = arguments[1];
 
 	switch (action.type) {
-		case "ADD_TODO":
+		case 'ADD_TODO':
 			return [].concat(_toConsumableArray(state), [todo(undefined, action)]);
 		default:
 			return state;
@@ -22764,4 +22815,4 @@ var todos = function todos() {
 
 exports.default = todos;
 
-},{}]},{},[220]);
+},{}]},{},[221]);
