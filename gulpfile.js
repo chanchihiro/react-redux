@@ -14,6 +14,7 @@ var buffer = require("vinyl-buffer"); //uglifyするためのもの //今は使�
 var node = require("node-dev");
 var source = require("vinyl-source-stream"); //browserifyとgulpを使用する場合は、vinyl-source-streamで橋渡ししないといけない
 var gcmq = require('gulp-group-css-media-queries'); //メディアクエリをまとめて小さくする
+var sourcemaps = require('gulp-sourcemaps'); //sourcemapの作成
 
 
 
@@ -32,12 +33,14 @@ gulp.task('babel', function() {
 
 
 gulp.task("build", function(){
-	browserify({entries: ["src/js/index.js"]})
+	browserify({entries: ["src/js/index.js"]},{debug: true})
 		.transform(babelify,{presets: ['es2015',"react"]}, {plugin: ['add-module-exports']})
 		.bundle()
 		.on("error",errorHandler)
 		.pipe(source('bundle.js'))
 		.pipe(buffer())
+		.pipe(sourcemaps.init({loadMaps: true}))
+		.pipe(sourcemaps.write("./"))
 		.pipe(gulp.dest('public/js'));
 	browser.reload();
 });
