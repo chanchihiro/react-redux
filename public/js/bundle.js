@@ -22974,9 +22974,9 @@ var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
-var _Reducer = require('./reducers/Reducer');
+var _index = require('./reducers/index');
 
-var _Reducer2 = _interopRequireDefault(_Reducer);
+var _index2 = _interopRequireDefault(_index);
 
 var _App = require('./components/App');
 
@@ -22986,7 +22986,7 @@ var _Actions = require('./actions/Actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_Reducer2.default); // reducerを呼び出す
+var store = (0, _redux.createStore)(_index2.default); // reducerを呼び出す
 
 store.dispatch((0, _Actions.addTodo)('Hello world!')); // この関数にactionを渡すことでacitonとstateをreducerに渡す
 store.dispatch((0, _Actions.addTodo)('Hello Redux!'));
@@ -22998,7 +22998,7 @@ _reactDom2.default.render(_react2.default.createElement(
 	_react2.default.createElement(_App2.default, null)
 ), document.getElementById("root"));
 
-},{"./actions/Actions":215,"./components/App":216,"./reducers/Reducer":222,"react":204,"react-dom":38,"react-redux":174,"redux":210}],222:[function(require,module,exports){
+},{"./actions/Actions":215,"./components/App":216,"./reducers/index":223,"react":204,"react-dom":38,"react-redux":174,"redux":210}],222:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23040,6 +23040,24 @@ var todos = function todos() {
 
 exports.default = todos;
 
-},{}]},{},[221])
+},{}],223:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = require('redux');
+
+var _Reducer = require('./Reducer');
+
+var _Reducer2 = _interopRequireDefault(_Reducer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var todoApp = (0, _redux.combineReducers)({ todos: _Reducer2.default });
+exports.default = todoApp;
+
+},{"./Reducer":222,"redux":210}]},{},[221])
 
 //# sourceMappingURL=bundle.js.map
