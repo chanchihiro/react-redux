@@ -12,6 +12,7 @@ let store = createStore(todo); // reducerを呼び出す
 store.dispatch(addTodo('Hello world!')) // この関数にactionを渡すことでacitonとstateをreducerに渡す
 store.dispatch(addTodo('Hello Redux!'))
 store.dispatch(addTodo('ちょっと理解してきた'))
+store.dispatch(addTodo('たいてぃーが成人した'))
 store.dispatch(toggleTodo(0))
 
 console.log(store.getState()) 

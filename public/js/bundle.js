@@ -22821,6 +22821,10 @@ var _VisibleTodoList = require('../containers/VisibleTodoList');
 
 var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
 
+var _Footer = require('./Footer');
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -22828,12 +22832,91 @@ var App = function App() {
 		'div',
 		null,
 		_react2.default.createElement(_AddTodo2.default, null),
-		_react2.default.createElement(_VisibleTodoList2.default, null)
+		_react2.default.createElement(_VisibleTodoList2.default, null),
+		_react2.default.createElement(_Footer2.default, null)
 	);
 };
 exports.default = App;
 
-},{"../containers/AddTodo":219,"../containers/VisibleTodoList":220,"react":204}],217:[function(require,module,exports){
+},{"../containers/AddTodo":221,"../containers/VisibleTodoList":222,"./Footer":217,"react":204}],217:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Link = require('./Link');
+
+var _Link2 = _interopRequireDefault(_Link);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Footer = function Footer() {
+	return _react2.default.createElement(
+		'p',
+		null,
+		'Show:',
+		"",
+		_react2.default.createElement(
+			_Link2.default,
+			null,
+			'All'
+		),
+		", ",
+		_react2.default.createElement(
+			_Link2.default,
+			null,
+			'Active'
+		),
+		", ",
+		_react2.default.createElement(
+			_Link2.default,
+			null,
+			'Completed'
+		)
+	);
+};
+
+exports.default = Footer;
+
+},{"./Link":218,"react":204}],218:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Link = function Link(_ref) {
+	var children = _ref.children,
+	    onClick = _ref.onClick;
+	return _react2.default.createElement(
+		'a',
+		{ href: '#' },
+		children
+	);
+};
+
+Link.propTypes = {
+	children: _react.PropTypes.node.isRequired
+};
+
+exports.default = Link;
+
+},{"react":204,"react-dom":38}],219:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22867,7 +22950,7 @@ Todo.propTypes = {
 
 exports.default = Todo;
 
-},{"react":204}],218:[function(require,module,exports){
+},{"react":204}],220:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22918,7 +23001,7 @@ var TodoList = function TodoList(_ref) {
 
 exports.default = TodoList;
 
-},{"./Todo":217,"react":204}],219:[function(require,module,exports){
+},{"./Todo":219,"react":204}],221:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22961,7 +23044,7 @@ AddTodo = (0, _reactRedux.connect)()(AddTodo);
 
 exports.default = AddTodo;
 
-},{"../actions/Actions":215,"react":204,"react-redux":174}],220:[function(require,module,exports){
+},{"../actions/Actions":215,"react":204,"react-redux":174}],222:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23011,7 +23094,7 @@ var VisibleTodoList = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToPro
 
 exports.default = VisibleTodoList;
 
-},{"../actions/Actions":215,"../components/TodoList":218,"react-redux":174}],221:[function(require,module,exports){
+},{"../actions/Actions":215,"../components/TodoList":220,"react-redux":174}],223:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -23043,6 +23126,7 @@ var store = (0, _redux.createStore)(_index2.default); // reducerを呼び出す
 store.dispatch((0, _Actions.addTodo)('Hello world!')); // この関数にactionを渡すことでacitonとstateをreducerに渡す
 store.dispatch((0, _Actions.addTodo)('Hello Redux!'));
 store.dispatch((0, _Actions.addTodo)('ちょっと理解してきた'));
+store.dispatch((0, _Actions.addTodo)('たいてぃーが成人した'));
 store.dispatch((0, _Actions.toggleTodo)(0));
 
 console.log(store.getState());
@@ -23055,7 +23139,7 @@ _reactDom2.default.render(_react2.default.createElement(
 	_react2.default.createElement(_App2.default, null)
 ), document.getElementById("root"));
 
-},{"./actions/Actions":215,"./components/App":216,"./reducers/index":224,"react":204,"react-dom":38,"react-redux":174,"redux":210}],222:[function(require,module,exports){
+},{"./actions/Actions":215,"./components/App":216,"./reducers/index":226,"react":204,"react-dom":38,"react-redux":174,"redux":210}],224:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23076,7 +23160,7 @@ var visualFilter = function visualFilter() {
 
 exports.default = visualFilter;
 
-},{}],223:[function(require,module,exports){
+},{}],225:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23132,7 +23216,7 @@ var todos = function todos() {
 
 exports.default = todos;
 
-},{}],224:[function(require,module,exports){
+},{}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23157,6 +23241,6 @@ var todo = (0, _redux.combineReducers)({
 });
 exports.default = todo;
 
-},{"./Filter":222,"./Reducer":223,"redux":210}]},{},[221])
+},{"./Filter":224,"./Reducer":225,"redux":210}]},{},[223])
 
 //# sourceMappingURL=bundle.js.map
