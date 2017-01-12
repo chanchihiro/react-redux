@@ -22795,6 +22795,13 @@ var toggleTodo = exports.toggleTodo = function toggleTodo(id) {
 	};
 };
 
+var filterTodo = exports.filterTodo = function filterTodo(filter) {
+	return {
+		type: 'SET_VISIBILITY_FILTER',
+		filter: filter
+	};
+};
+
 },{}],216:[function(require,module,exports){
 'use strict';
 
@@ -23022,6 +23029,8 @@ store.dispatch((0, _Actions.addTodo)('ちょっと理解してきた'));
 store.dispatch((0, _Actions.toggleTodo)(0));
 
 console.log(store.getState());
+store.dispatch((0, _Actions.filterTodo)('SHOW_COMPLETED'));
+console.log(store.getState());
 
 _reactDom2.default.render(_react2.default.createElement(
 	_reactRedux.Provider,
@@ -23029,7 +23038,28 @@ _reactDom2.default.render(_react2.default.createElement(
 	_react2.default.createElement(_App2.default, null)
 ), document.getElementById("root"));
 
-},{"./actions/Actions":215,"./components/App":216,"./reducers/index":223,"react":204,"react-dom":38,"react-redux":174,"redux":210}],222:[function(require,module,exports){
+},{"./actions/Actions":215,"./components/App":216,"./reducers/index":224,"react":204,"react-dom":38,"react-redux":174,"redux":210}],222:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var visualFilter = function visualFilter() {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'show_all';
+	var action = arguments[1];
+
+	switch (action.type) {
+		case 'SET_VISIBILITY_FILTER':
+			return action.filter;
+		default:
+			return state;
+	}
+};
+
+exports.default = visualFilter;
+
+},{}],223:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23060,6 +23090,8 @@ var todo = function todo(state, action) {
 			return Object.assign({}, state, {
 				completed: !state.completed
 			});
+		case 'FILTER?TODO':
+
 		default:
 			return state;
 	}
@@ -23083,11 +23115,11 @@ var todos = function todos() {
 
 exports.default = todos;
 
-},{}],223:[function(require,module,exports){
+},{}],224:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _redux = require('redux');
@@ -23096,11 +23128,18 @@ var _Reducer = require('./Reducer');
 
 var _Reducer2 = _interopRequireDefault(_Reducer);
 
+var _Filter = require('./Filter');
+
+var _Filter2 = _interopRequireDefault(_Filter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var todo = (0, _redux.combineReducers)({ todos: _Reducer2.default });
+var todo = (0, _redux.combineReducers)({
+	todos: _Reducer2.default,
+	filter: _Filter2.default
+});
 exports.default = todo;
 
-},{"./Reducer":222,"redux":210}]},{},[221])
+},{"./Filter":222,"./Reducer":223,"redux":210}]},{},[221])
 
 //# sourceMappingURL=bundle.js.map

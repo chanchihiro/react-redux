@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import todo from './reducers/index'
 import App from './components/App'
-import { addTodo, toggleTodo } from './actions/Actions'
+import { addTodo, toggleTodo, filterTodo } from './actions/Actions'
 
 
 let store = createStore(todo); // reducerを呼び出す
@@ -15,6 +15,8 @@ store.dispatch(addTodo('ちょっと理解してきた'))
 store.dispatch(toggleTodo(0))
 
 console.log(store.getState()) 
+store.dispatch(filterTodo('SHOW_COMPLETED'))
+console.log(store.getState())
 
 ReactDOM.render(
 	<Provider store={store}>

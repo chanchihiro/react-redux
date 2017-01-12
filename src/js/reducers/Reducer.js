@@ -22,6 +22,8 @@ const todo = (state, action) => {
 			return Object.assign({}, state, {
 				completed : !state.completed
 			})
+		case 'FILTER?TODO' :
+
 		default :
 			return state
 	}
