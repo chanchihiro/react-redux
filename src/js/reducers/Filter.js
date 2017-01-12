@@ -1,5 +1,5 @@
 
-const visualFilter = (state = 'show_all', action) => {
+const visualFilter = (state = 'SHOW_ALL', action) => {
 	switch (action.type) {
 		case 'SET_VISIBILITY_FILTER' :
 			return action.filter

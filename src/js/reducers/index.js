@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 import todos from './Reducer'
-import filter from './Filter'
+import visualFilter from './Filter'
 
 const todo = combineReducers({ 
 	todos,
-	filter
+	visualFilter
 })
 export default todo

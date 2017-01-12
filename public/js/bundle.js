@@ -22978,8 +22978,25 @@ var _Actions = require('../actions/Actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var getVisibleTodos = function getVisibleTodos(todos, filter) {
+	switch (filter) {
+		case 'SHOW_ALL':
+			return todos;
+		case 'SHOW_COMPLETED':
+			return todos.filter(function (t) {
+				return t.completed;
+			});
+		case 'SHOW_ACTIVE':
+			return todos.filter(function (t) {
+				return !t.completed;
+			});
+	}
+};
+
 var mapStateToProps = function mapStateToProps(state) {
-	return { todos: state.todos };
+	return {
+		todos: getVisibleTodos(state.todos, state.visualFilter)
+	};
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -23029,7 +23046,7 @@ store.dispatch((0, _Actions.addTodo)('ちょっと理解してきた'));
 store.dispatch((0, _Actions.toggleTodo)(0));
 
 console.log(store.getState());
-store.dispatch((0, _Actions.filterTodo)('SHOW_COMPLETED'));
+store.dispatch((0, _Actions.filterTodo)('SHOW_ACTIVE'));
 console.log(store.getState());
 
 _reactDom2.default.render(_react2.default.createElement(
@@ -23046,7 +23063,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var visualFilter = function visualFilter() {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'show_all';
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'SHOW_ALL';
 	var action = arguments[1];
 
 	switch (action.type) {
@@ -23136,7 +23153,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var todo = (0, _redux.combineReducers)({
 	todos: _Reducer2.default,
-	filter: _Filter2.default
+	visualFilter: _Filter2.default
 });
 exports.default = todo;
 
