@@ -23169,8 +23169,6 @@ store.dispatch((0, _Actions.addTodo)('たいてぃーが成人した'));
 store.dispatch((0, _Actions.toggleTodo)(10));
 
 console.log(store.getState());
-store.dispatch((0, _Actions.filterTodo)('SHOW_ACTIVE'));
-console.log(store.getState());
 
 _reactDom2.default.render(_react2.default.createElement(
 	_reactRedux.Provider,

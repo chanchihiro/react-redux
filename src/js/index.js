@@ -16,8 +16,7 @@ store.dispatch(addTodo('たいてぃーが成人した'))
 store.dispatch(toggleTodo(10))
 
 console.log(store.getState()) 
-store.dispatch(filterTodo('SHOW_ACTIVE'))
-console.log(store.getState())
+
 
 ReactDOM.render(
 	<Provider store={store}>
