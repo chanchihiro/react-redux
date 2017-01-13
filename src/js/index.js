@@ -13,7 +13,7 @@ store.dispatch(addTodo('Hello world!')) // この関数にactionを渡すこと�
 store.dispatch(addTodo('Hello Redux!'))
 store.dispatch(addTodo('ちょっと理解してきた'))
 store.dispatch(addTodo('たいてぃーが成人した'))
-store.dispatch(toggleTodo(0))
+store.dispatch(toggleTodo(10))
 
 console.log(store.getState()) 
 store.dispatch(filterTodo('SHOW_ACTIVE'))
