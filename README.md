@@ -2,4 +2,4 @@
 reactのReduxのチュートリアルのTodoリストを作ります
 
 # 動作
-<img src="todoredux">
+<img src="todoredux.gif">
